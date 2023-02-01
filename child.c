@@ -16,7 +16,6 @@ char	*path(char **envp)
 	int	i;
 
 	i = 0;
-
 	while (envp[i])
 	{
 		if (ft_strnstr(envp[i], "PATH", 4))
@@ -36,7 +35,6 @@ char	*find_path(char *cmd, char **all_path)
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	if (all_path == NULL)
-
 		return (NULL);
 	while (all_path[i])
 	{
@@ -64,7 +62,6 @@ void	child_one(t_pipex pipex, char **argv, char **envp)
 	pipex.path_cmd = find_path(pipex.arg_command[0], pipex.all_path);
 	if (!pipex.path_cmd)
 	{
-		// mettre ft_printf
 		ft_printf("%s : command not found", pipex.arg_command[0]);
 		free_child(pipex);
 		exit(1);
@@ -84,7 +81,6 @@ void	child_two(t_pipex pipex, char **argv, char **envp)
 	pipex.path_cmd = find_path(pipex.arg_command[0], pipex.all_path);
 	if (!pipex.path_cmd)
 	{
-		// mettre ft_printf
 		ft_printf("%s : command not found", pipex.arg_command[0]);
 		free_child(pipex);
 		exit(1);
