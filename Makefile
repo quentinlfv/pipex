@@ -9,6 +9,9 @@ CFLAGS	= -Wall -Werror -Wextra
 SRCS		= main.c \
 				child.c \
 				utils.c \
+				functions.c \
+				ft_printf.c \
+				ft_printf_utils.c \
 
 OBJS		= $(SRCS:.c=.o)
 
