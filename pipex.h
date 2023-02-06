@@ -36,7 +36,6 @@ typedef struct s_pipex
 int			check(int argc, char **argv);
 void		free_parent(t_pipex pipex);
 void		free_child(t_pipex pipex);
-int			open_files(t_pipex *pipex, char **argv);
 
 /* child.c */
 char		*path(char **envp);

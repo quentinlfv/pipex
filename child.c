@@ -52,7 +52,12 @@ char	*find_path(char *cmd, char **all_path)
 
 void	child_one(t_pipex pipex, char **argv, char **envp)
 {
-	close_doc(pipex.fd[1]);
+	pipex.fd[0] = open(argv[1], O_RDONLY);
+	if (pipex.fd[0] < 0)
+	{
+		perror(argv[1]);
+		exit(1);
+	}	
 	close_doc(pipex.pipefd[0]);
 	dup2(pipex.pipefd[1], STDOUT_FILENO);
 	dup2(pipex.fd[0], STDIN_FILENO);
@@ -62,7 +67,7 @@ void	child_one(t_pipex pipex, char **argv, char **envp)
 	pipex.path_cmd = find_path(pipex.arg_command[0], pipex.all_path);
 	if (!pipex.path_cmd)
 	{
-		ft_printf("%s : command not found", pipex.arg_command[0]);
+		ft_printf("command not found : %s\n", pipex.arg_command[0]);
 		free_child(pipex);
 		exit(1);
 	}
@@ -71,7 +76,12 @@ void	child_one(t_pipex pipex, char **argv, char **envp)
 
 void	child_two(t_pipex pipex, char **argv, char **envp)
 {
-	close_doc(pipex.fd[0]);
+	pipex.fd[1] = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
+	if (pipex.fd[1] < 0)
+	{
+		perror(argv[4]);
+		exit(1);
+	}
 	close_doc(pipex.pipefd[1]);
 	dup2(pipex.pipefd[0], STDIN_FILENO);
 	dup2(pipex.fd[1], STDOUT_FILENO);
@@ -81,7 +91,7 @@ void	child_two(t_pipex pipex, char **argv, char **envp)
 	pipex.path_cmd = find_path(pipex.arg_command[0], pipex.all_path);
 	if (!pipex.path_cmd)
 	{
-		ft_printf("%s : command not found", pipex.arg_command[0]);
+		ft_printf("command not found : %s\n", pipex.arg_command[0]);
 		free_child(pipex);
 		exit(1);
 	}

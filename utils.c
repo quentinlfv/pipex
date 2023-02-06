@@ -15,7 +15,7 @@ int	close_doc(int fd)
 {
 	if (close(fd) < 0)
 	{
-		printf("failed to close\n");
+		ft_printf("failed to close\n");
 		return (-1);
 	}
 	return (1);
