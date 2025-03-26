@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:34:44 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/02/21 17:31:56 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:09:36 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -23,7 +23,8 @@
 typedef struct s_pipex
 {
 	pid_t	pid;
-	int		fd[2];
+	int		infile;
+	int		outfile;
 	int		*pipefd;
 	int		nbr_commands;
 	int		index;
@@ -35,14 +36,20 @@ typedef struct s_pipex
 
 /* main.c */
 int			check(int argc, char **argv);
-void		free_parent(t_pipex pipex);
-void		free_child(t_pipex pipex);
+void		create_pipe(t_pipex *pipex);
+void		close_pipe(t_pipex *pipex);
+int			get_files(t_pipex *pipex, char *infile, char *outfile);
 
 /* child.c */
 char		*path(char **envp);
 char		*find_path(char *cmd, char **all_path);
-void		child_one(t_pipex pipex, char **argv, char **envp);
-void		child_two(t_pipex pipex, char **argv, char **envp);
+void		dup_dup2(int in_tube, int out_tube);
+void		child(t_pipex pipex, char **argv, char **envp);
+
+/* free.c */
+void		free_pipefd(t_pipex pipex);
+void		free_parent(t_pipex pipex);
+void		free_child(t_pipex pipex);
 
 /* utils.c */
 int			close_doc(int fd);

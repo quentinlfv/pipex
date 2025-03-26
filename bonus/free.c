@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:24:28 by qlefevre          #+#    #+#             */
-/*   Updated: 2023/02/01 18:24:32 by qlefevre         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:56:15 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -25,6 +25,8 @@ void	free_parent(t_pipex pipex)
 		}
 		free(pipex.all_path);
 	}
+	if (pipex.pipefd)
+		free(pipex.pipefd);
 }
 
 void	free_child(t_pipex pipex)
@@ -41,3 +43,4 @@ void	free_child(t_pipex pipex)
 	if (pipex.all_path)
 		free(pipex.all_path);
 }
+
