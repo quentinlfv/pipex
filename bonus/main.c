@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:08:52 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/03/26 15:40:57 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:06:32 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -17,30 +17,6 @@ int	check(int argc, char **argv)
 	if (argc < 5)
 	{
 		ft_printf("Wrong numbers or arguments\n");
-		return (0);
-	}
-	return (1);
-}
-
-void	close_files(t_pipex *pipex)
-{
-	close_doc(pipex->infile);
-	close_doc(pipex->outfile);
-}
-
-int		get_files(t_pipex *pipex, char *infile_name, char *outfile_name)
-{
-	pipex->infile = open(infile_name, O_RDONLY);
-	if (pipex->infile == -1)
-	{
-		ft_printf("Error\nfailed to open infile");
-		return (0);
-	}
-	pipex->outfile = open(outfile_name, O_RDWR | O_CREAT | O_TRUNC, 0000644);
-	if (pipex->outfile == -1)
-	{
-		ft_printf("Error\nfailed to open outfile");
-		close(pipex->infile);
 		return (0);
 	}
 	return (1);
@@ -88,13 +64,14 @@ int	main(int argc, char **argv, char **envp)
 		pipex.all_path = ft_split(pipex.path, ':');
 	else
 		pipex.all_path = NULL;
-	
-	if (!get_files(&pipex, argv[1], argv[argc - 1]))
+	if (!ft_strncmp(argv[1], "here_doc", 9))
+		pipex.heredoc = 1;
+	if (!get_files(&pipex, argv, argv[1], argv[argc - 1]))
 	{
 		free_parent(pipex);
 		return (0);
 	}
-	
+
 	pipex.nbr_commands = argc - 3;
 	pipex.pipefd = malloc(sizeof(int) * (pipex.nbr_commands) * 2);
 	if (!pipex.pipefd)
@@ -112,7 +89,6 @@ int	main(int argc, char **argv, char **envp)
 	close_pipe(&pipex);
 
 	waitpid(-1, &status, 0);
-	//waitpid(pipex.pid, &status, 0);
 	close_files(&pipex);
 	free_parent(pipex);
 	return (status);

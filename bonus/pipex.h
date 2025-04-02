@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:34:44 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/03/25 18:09:36 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:07:33 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -25,6 +25,7 @@ typedef struct s_pipex
 	pid_t	pid;
 	int		infile;
 	int		outfile;
+	int		heredoc;
 	int		*pipefd;
 	int		nbr_commands;
 	int		index;
@@ -38,13 +39,17 @@ typedef struct s_pipex
 int			check(int argc, char **argv);
 void		create_pipe(t_pipex *pipex);
 void		close_pipe(t_pipex *pipex);
-int			get_files(t_pipex *pipex, char *infile, char *outfile);
 
 /* child.c */
 char		*path(char **envp);
 char		*find_path(char *cmd, char **all_path);
 void		dup_dup2(int in_tube, int out_tube);
 void		child(t_pipex pipex, char **argv, char **envp);
+
+/* files.c */
+int			get_heredoc(char *limiter);
+int			get_files(t_pipex *pipex, char **argv, char *infile_name, char *outfile_name);
+void		close_files(t_pipex *pipex);
 
 /* free.c */
 void		free_pipefd(t_pipex pipex);
@@ -75,5 +80,9 @@ void		ft_putnbr_upx(unsigned long nbr, int *len);
 void		ft_putnbr(int nbr, int *len);
 int			ft_formats(char c, va_list args, int *len);
 int			ft_printf(const char *s, ...);
+
+/* others */
+int	ft_strncmp(const char *string1, const char *string2, size_t count);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif 
