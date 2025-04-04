@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:12:10 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/03/26 11:56:22 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:44:57 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -68,7 +68,7 @@ void	child(t_pipex pipex, char **argv, char **envp)
 		else
 			dup_dup2(pipex.pipefd[(pipex.index * 2) - 2], pipex.pipefd[(pipex.index * 2) + 1]);
 		close_pipe(&pipex);
-		pipex.arg_command = ft_split(argv[2 + pipex.index], ' ');
+		pipex.arg_command = ft_split(argv[2 + pipex.index + pipex.heredoc], ' ');
 		pipex.path_command = find_path(pipex.arg_command[0], pipex.all_path);
 		if (!pipex.path_command)
 		{

@@ -6,7 +6,7 @@
 /*   By: quelefev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:13:54 by quelefev          #+#    #+#             */
-/*   Updated: 2025/01/21 15:14:09 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:34:07 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef GET_NEXT_LINE_H
@@ -28,9 +28,11 @@ void	get_rest(char *mem_line, char *buf);
 
 /* get_next_line_utils.c */
 void	ft_bzero(void *s, size_t n);
+/*
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-char	*ft_strjoin(char *mem_line, char *buff);
-char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(const char *s);
+*/
+char	*ft_string_join(char *mem_line, char *buff);
+char	*ft_strchr(char *s, int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:08:52 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/02 18:06:32 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:00:19 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 
-	pipex.nbr_commands = argc - 3;
+	pipex.nbr_commands = argc - 3 - pipex.heredoc;
 	pipex.pipefd = malloc(sizeof(int) * (pipex.nbr_commands) * 2);
 	if (!pipex.pipefd)
 	{

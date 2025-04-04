@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:34:44 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/02 18:07:33 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:33:25 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include "get_next_line.h"
 
 typedef struct s_pipex
 {
@@ -47,7 +48,7 @@ void		dup_dup2(int in_tube, int out_tube);
 void		child(t_pipex pipex, char **argv, char **envp);
 
 /* files.c */
-int			get_heredoc(char *limiter);
+void		get_heredoc(char *limiter);
 int			get_files(t_pipex *pipex, char **argv, char *infile_name, char *outfile_name);
 void		close_files(t_pipex *pipex);
 

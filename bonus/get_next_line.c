@@ -6,10 +6,11 @@
 /*   By: quelefev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:12:49 by quelefev          #+#    #+#             */
-/*   Updated: 2025/01/21 15:12:52 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:35:58 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
+#include "pipex.h"
 
 char	*get_line(char *mem_line)
 {
@@ -62,14 +63,14 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, buf, 0) == -1)
 		return (NULL);
 	mem_line = NULL;
-	mem_line = ft_strjoin(mem_line, buf);
+	mem_line = ft_string_join(mem_line, buf);
 	while (!ft_strchr(mem_line, '\n') && ret != 0)
 	{
 		ft_bzero(buf, BUFFER_SIZE + 1);
 		ret = read(fd, buf, BUFFER_SIZE);
 		if (ret < 0)
 			return (NULL);
-		mem_line = ft_strjoin(mem_line, buf);
+		mem_line = ft_string_join(mem_line, buf);
 		if (!mem_line)
 			return (NULL);
 	}

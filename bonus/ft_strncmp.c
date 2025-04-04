@@ -6,10 +6,10 @@
 /*   By: quelefev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:05:08 by quelefev          #+#    #+#             */
-/*   Updated: 2024/11/20 18:05:11 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:17:03 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "pipex.h"
 
 int	ft_strncmp(const char *string1, const char *string2, size_t count)
 {
