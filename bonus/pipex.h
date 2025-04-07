@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:34:44 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/04 17:33:25 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:55:31 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -39,10 +39,14 @@ typedef struct s_pipex
 /* main.c */
 int			check(int argc, char **argv);
 void		create_pipe(t_pipex *pipex);
-void		close_pipe(t_pipex *pipex);
+void		close_pipes(t_pipex *pipex);
+int			exec_pipex(int argc, char **argv, char **envp, t_pipex pipex);
+
+/* init.c */
+void		init_struct(t_pipex *pipex);
 
 /* child.c */
-char		*path(char **envp);
+char		*get_path(char **envp);
 char		*find_path(char *cmd, char **all_path);
 void		dup_dup2(int in_tube, int out_tube);
 void		child(t_pipex pipex, char **argv, char **envp);

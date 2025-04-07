@@ -5,6 +5,8 @@ void	close_files(t_pipex *pipex)
 {
 	close_doc(pipex->infile);
 	close_doc(pipex->outfile);
+	if (pipex->heredoc == 1)
+		unlink(".heredoc.tmp");
 }
 
 void	get_heredoc(char *limiter)

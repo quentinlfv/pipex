@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:08:52 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/04 17:00:19 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:56:07 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -39,7 +39,7 @@ void	create_pipe(t_pipex *pipex)
 	}
 }
 
-void	close_pipe(t_pipex *pipex)
+void	close_pipes(t_pipex *pipex)
 {
 	int	i;
 
@@ -51,27 +51,24 @@ void	close_pipe(t_pipex *pipex)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+void	init_struct(t_pipex *pipex)
 {
-	t_pipex		pipex;
-	int			status;
+	pipex->infile = 0;
+	pipex->outfile = 0;
+	pipex->heredoc = 0;
+	pipex->index = 0;
+	pipex->nbr_commands = 0;
+	pipex->pipefd = NULL;
+	pipex->all_path = NULL;
+	pipex->path_command = NULL;
+	pipex->arg_command = NULL;
+}
+
+int	exec_pipex(int argc, char **argv, char **envp, t_pipex pipex)
+{
+	int status;
 
 	status = 0;
-	if (!check(argc, argv))
-		return (2);
-	pipex.path = path(envp);
-	if (pipex.path)
-		pipex.all_path = ft_split(pipex.path, ':');
-	else
-		pipex.all_path = NULL;
-	if (!ft_strncmp(argv[1], "here_doc", 9))
-		pipex.heredoc = 1;
-	if (!get_files(&pipex, argv, argv[1], argv[argc - 1]))
-	{
-		free_parent(pipex);
-		return (0);
-	}
-
 	pipex.nbr_commands = argc - 3 - pipex.heredoc;
 	pipex.pipefd = malloc(sizeof(int) * (pipex.nbr_commands) * 2);
 	if (!pipex.pipefd)
@@ -80,16 +77,39 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	create_pipe(&pipex);
-	pipex.index = 0; 
 	while (pipex.index < pipex.nbr_commands)
 	{
 		child(pipex, argv, envp);
 		pipex.index++;
 	}
-	close_pipe(&pipex);
+	close_pipes(&pipex);
 
 	waitpid(-1, &status, 0);
 	close_files(&pipex);
 	free_parent(pipex);
 	return (status);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_pipex		pipex;
+
+	if (!check(argc, argv))
+		return (2);
+	init_struct(&pipex);
+	if (!ft_strncmp(argv[1], "here_doc", 9))
+	{
+		if (argc < 6)
+			return (ft_printf("Wrong numbers of args!\n"), 2);
+		else
+			pipex.heredoc = 1;
+	}
+	if (!get_files(&pipex, argv, argv[1], argv[argc - 1]))
+		return (0);
+	pipex.path = get_path(envp);
+	if (pipex.path)
+		pipex.all_path = ft_split(pipex.path, ':');
+	else
+		pipex.all_path = NULL;
+	return (exec_pipex(argc, argv, envp, pipex));
 }
