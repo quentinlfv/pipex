@@ -35,20 +35,26 @@ int		get_files(t_pipex *pipex, char **argv, char *infile_name, char *outfile_nam
 	{
 		get_heredoc(argv[2]);
 		pipex->infile = open(".heredoc.tmp", O_RDONLY);
+		if (pipex->infile == -1)
+		{
+			unlink(".heredoc.tmp");
+			ft_printf("Error\nfailed to open infile\n");
+			return (0);
+		}
 	}
 	else
 	{
 		pipex->infile = open(infile_name, O_RDONLY);
 		if (pipex->infile == -1)
 		{
-			ft_printf("Error\nfailed to open infile");
+			ft_printf("Error\nfailed to open infile\n");
 			return (0);
 		}
 	}
 	pipex->outfile = open(outfile_name, O_RDWR | O_CREAT | O_TRUNC, 0000644);
 	if (pipex->outfile == -1)
 	{
-		ft_printf("Error\nfailed to open outfile");
+		ft_printf("Error\nfailed to open outfile\n");
 		close(pipex->infile);
 		return (0);
 	}

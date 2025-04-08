@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:08:52 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/07 16:56:07 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:33:50 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -32,8 +32,8 @@ void	create_pipe(t_pipex *pipex)
 		if (pipe(pipex->pipefd + 2 * i) == -1)
 		{
 			free_parent(*pipex);
-			printf("exit\n");
-			exit(0);
+			ft_printf("Error while creating pipe\n");
+			exit(1);
 		}
 		i++;
 	}
@@ -95,17 +95,17 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex		pipex;
 
 	if (!check(argc, argv))
-		return (2);
+		return (1);
 	init_struct(&pipex);
 	if (!ft_strncmp(argv[1], "here_doc", 9))
 	{
 		if (argc < 6)
-			return (ft_printf("Wrong numbers of args!\n"), 2);
+			return (ft_printf("Wrong numbers of args!\n"), 1);
 		else
 			pipex.heredoc = 1;
 	}
 	if (!get_files(&pipex, argv, argv[1], argv[argc - 1]))
-		return (0);
+		return (1);
 	pipex.path = get_path(envp);
 	if (pipex.path)
 		pipex.all_path = ft_split(pipex.path, ':');
