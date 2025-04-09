@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:34:44 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/07 16:55:31 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:25:04 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <stdarg.h>
 # include <unistd.h>
@@ -28,12 +28,12 @@ typedef struct s_pipex
 	int		outfile;
 	int		heredoc;
 	int		*pipefd;
-	int		nbr_commands;
+	int		nbr_cmds;
 	int		index;
 	char	*path;
 	char	**all_path;
-	char	*path_command;
-	char	**arg_command;
+	char	*path_cmd;
+	char	**arg_cmd;
 }t_pipex;
 
 /* main.c */
@@ -53,7 +53,10 @@ void		child(t_pipex pipex, char **argv, char **envp);
 
 /* files.c */
 void		get_heredoc(char *limiter);
-int			get_files(t_pipex *pipex, char **argv, char *infile_name, char *outfile_name);
+int			get_files(t_pipex *pipex, char **argv,
+				char *in_name, char *out_name);
+int			get_infile(t_pipex *pipex, char **argv, char *infile_name);
+int			get_outfile(t_pipex *pipex, char *outfile_name);
 void		close_files(t_pipex *pipex);
 
 /* free.c */
@@ -87,7 +90,7 @@ int			ft_formats(char c, va_list args, int *len);
 int			ft_printf(const char *s, ...);
 
 /* others */
-int	ft_strncmp(const char *string1, const char *string2, size_t count);
-void	ft_putstr_fd(char *s, int fd);
+int			ft_strncmp(const char *string1, const char *string2, size_t count);
+void		ft_putstr_fd(char *s, int fd);
 
 #endif 

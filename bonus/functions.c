@@ -6,10 +6,10 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:32:46 by qlefevre          #+#    #+#             */
-/*   Updated: 2023/02/01 14:32:50 by qlefevre         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:48:25 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 int	strnbr(char const *s, char c)
 {

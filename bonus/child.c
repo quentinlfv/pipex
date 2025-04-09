@@ -6,10 +6,10 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:12:10 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/07 15:54:33 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:58:20 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 char	*get_path(char **envp)
 {
@@ -32,10 +32,10 @@ char	*find_path(char *cmd, char **all_path)
 	int		i;
 
 	i = 0;
+	if (all_path == NULL || !cmd)
+		return (NULL);
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
-	if (all_path == NULL)
-		return (NULL);
 	while (all_path[i])
 	{
 		tmp = ft_strjoin(all_path[i], "/");
@@ -63,19 +63,20 @@ void	child(t_pipex pipex, char **argv, char **envp)
 	{
 		if (pipex.index == 0)
 			dup_dup2(pipex.infile, pipex.pipefd[1]);
-		else if (pipex.index == pipex.nbr_commands - 1)
+		else if (pipex.index == pipex.nbr_cmds - 1)
 			dup_dup2(pipex.pipefd[(pipex.index * 2) - 2], pipex.outfile);
 		else
-			dup_dup2(pipex.pipefd[(pipex.index * 2) - 2], pipex.pipefd[(pipex.index * 2) + 1]);
+			dup_dup2(pipex.pipefd[(pipex.index * 2) - 2],
+				pipex.pipefd[(pipex.index * 2) + 1]);
 		close_pipes(&pipex);
-		pipex.arg_command = ft_split(argv[2 + pipex.index + pipex.heredoc], ' ');
-		pipex.path_command = find_path(pipex.arg_command[0], pipex.all_path);
-		if (!pipex.path_command)
+		pipex.arg_cmd = ft_split(argv[2 + pipex.index + pipex.heredoc], ' ');
+		pipex.path_cmd = find_path(pipex.arg_cmd[0], pipex.all_path);
+		if (!pipex.path_cmd)
 		{
-			ft_printf("Command not found : %s\n", pipex.arg_command[0]);
+			ft_printf("Command not found : %s\n", pipex.arg_cmd[0]);
 			free_child(pipex);
 			exit(1);
 		}
-		execve(pipex.path_command, pipex.arg_command, envp);
+		execve(pipex.path_cmd, pipex.arg_cmd, envp);
 	}
 }

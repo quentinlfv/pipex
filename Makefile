@@ -4,8 +4,8 @@ CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 
 SRC_PATH = mandatory/
-OBJ_PATH = obj/
-OBJ_PATH_B = obj/
+OBJ_PATH = obj/mandatory/
+OBJ_PATH_B = obj/bonus/
 BONUS_PATH = bonus/
 
 
@@ -23,6 +23,7 @@ B_SRC	= 	main.c \
 		files.c \
 		utils.c \
 		free.c \
+		init.c \
 		functions.c \
 		ft_printf.c \
 		ft_printf_utils.c \
@@ -38,9 +39,9 @@ OBJ			= $(SRC:.c=.o)
 OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
 INCS		= -I ./includes/
 
-B_SRCS		= $(addprefix $(SRC_PATH), $(B_SRC))
+B_SRCS		= $(addprefix $(BONUS_PATH), $(B_SRC))
 B_OBJ		= $(B_SRC:.c=.o)
-B_OBJS		= $(addprefix $(OBJ_PATH), $(B_OBJ))
+B_OBJS		= $(addprefix $(OBJ_PATH_B), $(B_OBJ))
 
 RM 			:= rm -rf
 MAKEFLAGS	+= --no-print-directory
@@ -54,7 +55,12 @@ $(OBJ_PATH_B)%.o: $(BONUS_PATH)%.c
 		$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 
 $(OBJ_PATH):
-		mkdir $(OBJ_PATH)
+		mkdir obj -p
+		mkdir -p $(OBJ_PATH)
+
+$(OBJ_PATH_B):
+		mkdir obj -p
+		mkdir -p $(OBJ_PATH_B)
 
 $(NAME): $(OBJ_PATH) $(OBJS)
 		$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
@@ -65,7 +71,7 @@ $(NAME_B): $(OBJ_PATH_B) $(B_OBJS)
 bonus: $(NAME_B)
 
 clean:
-	$(RM) $(OBJS) $(OBJ_PATH)
+	$(RM) obj
 
 fclean: clean
 		$(RM) $(NAME) $(NAME_B)

@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: quelefev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 18:02:21 by quelefev          #+#    #+#             */
-/*   Updated: 2025/04/09 15:47:45 by quelefev         ###   ########.fr       */
+/*   Created: 2025/04/09 15:44:51 by quelefev          #+#    #+#             */
+/*   Updated: 2025/04/09 16:16:50 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex_bonus.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	init_struct(t_pipex *pipex)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
+	pipex->infile = 0;
+	pipex->outfile = 0;
+	pipex->heredoc = 0;
+	pipex->index = 0;
+	pipex->nbr_cmds = 0;
+	pipex->pipefd = NULL;
+	pipex->all_path = NULL;
+	pipex->path_cmd = NULL;
+	pipex->arg_cmd = NULL;
 }

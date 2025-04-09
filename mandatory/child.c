@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:12:10 by qlefevre          #+#    #+#             */
-/*   Updated: 2023/01/26 15:15:41 by qlefevre         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:07:45 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -32,10 +32,10 @@ char	*find_path(char *cmd, char **all_path)
 	int		i;
 
 	i = 0;
+	if (all_path == NULL || !cmd)
+		return (NULL);
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
-	if (all_path == NULL)
-		return (NULL);
 	while (all_path[i])
 	{
 		tmp = ft_strjoin(all_path[i], "/");

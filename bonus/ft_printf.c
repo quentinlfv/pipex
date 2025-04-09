@@ -6,11 +6,10 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:28:14 by qlefevre          #+#    #+#             */
-/*   Updated: 2022/09/08 16:34:08 by qlefevre         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:47:07 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	ft_putnbr_upx(unsigned long nbr, int *len)
 {

@@ -6,11 +6,11 @@
 /*   By: quelefev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:13:04 by quelefev          #+#    #+#             */
-/*   Updated: 2025/04/04 15:36:35 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:18:59 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -26,38 +26,6 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-
-/*
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	unsigned int	i;
-	int				srclen;
-
-	i = 0;
-	srclen = ft_strlen(src);
-	if (!dst || !src)
-		return (0);
-	if (size == 0)
-		return (srclen);
-	while (src[i] && i < size - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = 0;
-	return (srclen);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-*/
 char	*ft_strchr(char *s, int c)
 {
 	int		i;

@@ -1,4 +1,15 @@
-#include "pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   files.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quelefev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/09 15:46:30 by quelefev          #+#    #+#             */
+/*   Updated: 2025/04/09 16:23:18 by quelefev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "pipex_bonus.h"
 #include "get_next_line.h"
 
 void	close_files(t_pipex *pipex)
@@ -29,7 +40,16 @@ void	get_heredoc(char *limiter)
 	close(heredoc_fd);
 }
 
-int		get_files(t_pipex *pipex, char **argv, char *infile_name, char *outfile_name)
+int	get_files(t_pipex *pipex, char **argv, char *in_name, char *out_name)
+{
+	if (!get_infile(pipex, argv, in_name))
+		return (0);
+	if (!get_outfile(pipex, out_name))
+		return (close(pipex->infile), 0);
+	return (1);
+}
+
+int	get_infile(t_pipex *pipex, char **argv, char *infile_name)
 {
 	if (pipex->heredoc == 1)
 	{
@@ -51,11 +71,15 @@ int		get_files(t_pipex *pipex, char **argv, char *infile_name, char *outfile_nam
 			return (0);
 		}
 	}
+	return (1);
+}
+
+int	get_outfile(t_pipex *pipex, char *outfile_name)
+{
 	pipex->outfile = open(outfile_name, O_RDWR | O_CREAT | O_TRUNC, 0000644);
 	if (pipex->outfile == -1)
 	{
 		ft_printf("Error\nfailed to open outfile\n");
-		close(pipex->infile);
 		return (0);
 	}
 	return (1);

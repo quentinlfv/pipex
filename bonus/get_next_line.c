@@ -6,11 +6,11 @@
 /*   By: quelefev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:12:49 by quelefev          #+#    #+#             */
-/*   Updated: 2025/04/04 15:35:58 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:48:50 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 char	*get_line(char *mem_line)
 {
