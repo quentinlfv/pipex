@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:12:10 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/09 15:58:20 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:40:37 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex_bonus.h"
@@ -75,7 +75,7 @@ void	child(t_pipex pipex, char **argv, char **envp)
 		{
 			ft_printf("Command not found : %s\n", pipex.arg_cmd[0]);
 			free_child(pipex);
-			exit(1);
+			exit(127);
 		}
 		execve(pipex.path_cmd, pipex.arg_cmd, envp);
 	}

@@ -6,18 +6,27 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:08:52 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/09 16:18:22 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:47:15 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex_bonus.h"
 
 int	check(int argc, char **argv)
 {
+	int	i;
+
 	*argv += 1;
 	if (argc < 5)
 	{
-		ft_printf("Wrong numbers or arguments\n");
+		ft_printf("Wrong numbers of arguments\n");
 		return (0);
+	}
+	i = 0;
+	while (i < argc)
+	{
+		if (argv[i] == NULL || ft_strlen(argv[i]) == 0)
+			return (ft_printf("Wrongs args\n"), 0);
+		i++;
 	}
 	return (1);
 }
@@ -54,8 +63,10 @@ void	close_pipes(t_pipex *pipex)
 int	exec_pipex(int argc, char **argv, char **envp, t_pipex pipex)
 {
 	int	status;
+	int	exit_code;
 
 	status = 0;
+	exit_code = 1;
 	pipex.nbr_cmds = argc - 3 - pipex.heredoc;
 	pipex.pipefd = malloc(sizeof(int) * (pipex.nbr_cmds) * 2);
 	if (!pipex.pipefd)
@@ -68,9 +79,11 @@ int	exec_pipex(int argc, char **argv, char **envp, t_pipex pipex)
 	}
 	close_pipes(&pipex);
 	waitpid(-1, &status, 0);
+	if (WIFEXITED(status))
+		exit_code = WEXITSTATUS(status);
 	close_files(&pipex);
 	free_parent(pipex);
-	return (0);
+	return (exit_code);
 }
 
 int	main(int argc, char **argv, char **envp)

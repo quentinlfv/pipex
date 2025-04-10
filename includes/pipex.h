@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:34:44 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/09 17:15:41 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:55:55 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -36,6 +36,7 @@ typedef struct s_pipex
 int			check(int argc, char **argv);
 void		free_parent(t_pipex pipex);
 void		free_child(t_pipex pipex);
+int			exec(t_pipex pipex, char **argv, char **envp);
 
 /* child.c */
 char		*path(char **envp);

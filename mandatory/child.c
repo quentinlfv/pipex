@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:12:10 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/09 17:07:45 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:24:47 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -69,7 +69,7 @@ void	child_one(t_pipex pipex, char **argv, char **envp)
 	{
 		ft_printf("command not found : %s\n", pipex.arg_command[0]);
 		free_child(pipex);
-		exit(1);
+		exit(127);
 	}
 	execve(pipex.path_cmd, pipex.arg_command, envp);
 }
@@ -93,7 +93,7 @@ void	child_two(t_pipex pipex, char **argv, char **envp)
 	{
 		ft_printf("command not found : %s\n", pipex.arg_command[0]);
 		free_child(pipex);
-		exit(1);
+		exit(127);
 	}
 	execve(pipex.path_cmd, pipex.arg_command, envp);
 }
