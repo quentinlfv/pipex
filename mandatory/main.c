@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:08:52 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/10 18:02:38 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:47:20 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -59,6 +59,7 @@ int	exec(t_pipex pipex, char **argv, char **envp)
 	free_parent(pipex);
 	return (exit_code);
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex		pipex;

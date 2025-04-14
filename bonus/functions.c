@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:32:46 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/09 15:48:25 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:58:57 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex_bonus.h"
@@ -107,6 +107,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1 != NULL)
 		ft_strlcpy(str, s1, len1 + 1);
 	ft_strlcpy(str + len1, s2, len2 + 1);
-	free((void *)s1);
 	return (str);
 }

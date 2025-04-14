@@ -6,7 +6,7 @@
 /*   By: qlefevre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:12:10 by qlefevre          #+#    #+#             */
-/*   Updated: 2025/04/10 11:24:47 by quelefev         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:24:03 by quelefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -40,6 +40,7 @@ char	*find_path(char *cmd, char **all_path)
 	{
 		tmp = ft_strjoin(all_path[i], "/");
 		command = ft_strjoin(tmp, cmd);
+		free(tmp);
 		if (access(command, F_OK) == 0)
 		{
 			return (command);
@@ -52,9 +53,11 @@ char	*find_path(char *cmd, char **all_path)
 
 void	child_one(t_pipex pipex, char **argv, char **envp)
 {
+	pipex.arg_command = NULL;
 	pipex.fd[0] = open(argv[1], O_RDONLY);
 	if (pipex.fd[0] < 0)
 	{
+		free_child(pipex);
 		perror(argv[1]);
 		exit(1);
 	}	
@@ -76,9 +79,11 @@ void	child_one(t_pipex pipex, char **argv, char **envp)
 
 void	child_two(t_pipex pipex, char **argv, char **envp)
 {
+	pipex.arg_command = NULL;
 	pipex.fd[1] = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	if (pipex.fd[1] < 0)
 	{
+		free_child(pipex);
 		perror(argv[4]);
 		exit(1);
 	}
